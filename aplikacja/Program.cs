@@ -14,6 +14,14 @@ PrintEmployees(employees); // zadanie 2.1
 Console.WriteLine($"Średnia pensja: {CalculateAverageSalary(employees)}"); // zadanie 2.2
 Console.WriteLine($"Pensja pracownika o ID 1: {FindById(employees, 1)?.Salary ?? 0}"); // zadanie 2.3 oraz 2.4
 WriteEmployeesToFile(employees); // zadanie 2.5
+var textFormatter = new TextReportFormatter(); // zadanie 3.5
+var csvFormatter = new CsvReportFormatter(); // zadanie 3.5
+
+Console.WriteLine("Raport tekstowy:");
+PrintReport(employees, textFormatter);
+
+Console.WriteLine("\nRaport CSV:");
+PrintReport(employees, csvFormatter);
 
 void PrintEmployees(IEnumerable<Employee> employees) // zadanie 2.1
 {
@@ -69,4 +77,15 @@ void WriteEmployeesToFile(IEnumerable<Employee> employees) // zadanie 2.5
     }
 
     Console.WriteLine($"Raport zapisano do: {filePath}");
+}
+
+void PrintReport(IEnumerable<Employee> employees, IReportFormatter formatter) // zadanie 3.4
+{
+    ArgumentNullException.ThrowIfNull(employees);
+    ArgumentNullException.ThrowIfNull(formatter);
+
+    foreach (var employee in employees)
+    {
+        Console.WriteLine(formatter.Format(employee));
+    }
 }
