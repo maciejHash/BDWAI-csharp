@@ -1,0 +1,48 @@
+Imię: Anna 
+Nazwisko: Kowalska, 
+wiek: 23, 
+pensja: 12500, 
+stanowisko: Manager
+--------------------
+Imię: Krzysztos 
+Nazwisko: Rapacz, 
+wiek: 40, 
+pensja: 9800, 
+stanowisko: Developer
+--------------------
+Imię: Zofia 
+Nazwisko: Wiśniewska, 
+wiek: 25, 
+pensja: 4200, 
+stanowisko: Intern
+--------------------
+Imię: Piotr 
+Nazwisko: Wójcik, 
+wiek: 31, 
+pensja: 7600, 
+stanowisko: Manager
+--------------------
+Imię: Maria 
+Nazwisko: Rapacz, 
+wiek: 38, 
+pensja: 10500, 
+stanowisko: Developer
+--------------------
+Imię: Reobert 
+Nazwisko: Lewandowski, 
+wiek: 27, 
+pensja: 6900, 
+stanowisko: Tester
+--------------------
+Imię: Alicja 
+Nazwisko: Rapacz, 
+wiek: 23, 
+pensja: 4500, 
+stanowisko: Intern
+--------------------
+Imię: Piotr 
+Nazwisko: Szymański, 
+wiek: 44, 
+pensja: 14200, 
+stanowisko: Manager
+--------------------
