@@ -4,7 +4,7 @@ public class CsvReportFormatter : IReportFormatter // zadanie 3.3
     {
         ArgumentNullException.ThrowIfNull(employee);
 
-        return string.Join(" ",
+        return string.Join(",",
             employee.Id,
             employee.FirstName,
             employee.LastName,

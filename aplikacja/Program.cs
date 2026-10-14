@@ -25,6 +25,8 @@ PrintReport(employees, csvFormatter);
 
 void PrintEmployees(IEnumerable<Employee> employees) // zadanie 2.1
 {
+    ArgumentNullException.ThrowIfNull(employees);
+
     foreach (var employee in employees)
     {
         Console.WriteLine(employee);
@@ -67,7 +69,7 @@ void WriteEmployeesToFile(IEnumerable<Employee> employees) // zadanie 2.5
 {
     ArgumentNullException.ThrowIfNull(employees);
 
-    var filePath = Path.GetFullPath(
+    var filePath = Path.GetFullPath( // aby zapisywalo w katalogu projektu, a nie w katalogu bin/Debug/net10.0
         Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "employees.txt"));
     using var writer = new StreamWriter(filePath, append: false);
     foreach (var employee in employees)

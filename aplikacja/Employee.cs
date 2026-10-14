@@ -31,7 +31,7 @@ public class Employee // zadanie 1.1
             var today = DateTime.Today;
             var age = today.Year - BirthDate.Year;
 
-            if (BirthDate.Date > today.AddYears(-age))
+            if (BirthDate.Date > today.Date.AddYears(-age))
             {
                 age--;
             }
