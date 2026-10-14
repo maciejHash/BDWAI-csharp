@@ -23,6 +23,17 @@ PrintReport(employees, textFormatter);
 Console.WriteLine("\nRaport CSV:");
 PrintReport(employees, csvFormatter);
 
+Console.WriteLine($"\nTestowanie (zwraca null): {FindById(employees, 100)?.Salary ?? 0}"); // zadanie 4.5
+
+try // zadanie 4.2
+{
+    var invalidEmployee = new Employee(9, "Invalid", "Employee", new DateTime(2004, 1, 13), Position.Developer, -1000);
+}
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine($"Błąd: {ex.Message}");
+}
+
 void PrintEmployees(IEnumerable<Employee> employees) // zadanie 2.1
 {
     ArgumentNullException.ThrowIfNull(employees);

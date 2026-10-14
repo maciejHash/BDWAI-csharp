@@ -9,6 +9,8 @@ public enum Position // zadanie 1.2
 public class Employee // zadanie 1.1
 {
     private decimal _salary;
+    private Position _position;
+
     // zadanie 1.3
     public Employee(int id, string firstName, string lastName, DateTime birthDate, Position position, decimal salary)
     {
@@ -40,13 +42,43 @@ public class Employee // zadanie 1.1
         }
     }
 
-    public Position Position { get; set; }
+    // zadanie 4.4 - błąd w samym int age = DateTime.Today.Year - employee.BirthDate.Year; 
+    // jest taki że nie uwzględnia miesiąca i dnia
+    public Position Position
+    {
+        get => _position;
+        set
+        {
+            if (value == Position.Intern && _salary > 10000) // zadanie 4.3
+            {
+                throw new ArgumentException(
+                    "Pracownik na stanowisku Intern nie może zarabiać więcej niż 10000 zl.",
+                    nameof(value));
+            }
+
+            _position = value;
+        }
+    }
+
     public decimal Salary // zadanie 1.3
     {
         get => _salary;
-        set => _salary = value >= 0
-            ? value
-            : throw new ArgumentOutOfRangeException(nameof(value), "Pensja nie moze byc ujemna.");
+        set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "Pensja nie moze byc ujemna.");
+            }
+
+            if (_position == Position.Intern && value > 10000)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(value),
+                    "Pracownik na stanowisku Intern nie może zarabiać więcej niż 10000 zl.");
+            }
+
+            _salary = value;
+        }
     }
 
     public override string ToString() // zadanie 1.5
