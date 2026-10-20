@@ -43,6 +43,8 @@ catch (ArgumentOutOfRangeException ex)
 ---------------------------- LABORATORIUM 2 początek ----------------------------
 */
 
+// --- zadanie 2 ---
+
 var highEarners = employees.Where(e => e.Salary > 10000).ToList(); // zadanie 2.1
 
 Console.WriteLine("\nPracownicy zarabiający więcej niż 10000 zł: ");
@@ -170,6 +172,67 @@ else
 {
     Console.WriteLine("Niepoprawne Id pracownika");
 }
+
+// --- zadanie 6 ---
+
+var richDevelopers = employees
+    .Where(e => e.Position == Position.Developer && e.Salary > 10000)
+    .OrderByDescending(e => e.Salary)
+    .ToList(); // zadanie 6.1
+
+Console.WriteLine("\nDeveloperzy zarabiający więcej niż 10000 zł (malejąco według pensji): \n");
+PrintEmployees(richDevelopers);
+
+var topThreeEarners = employees
+    .OrderByDescending(e => e.Salary)
+    .Take(3)
+    .Select(e => new { e.FirstName, e.LastName })
+    .ToList(); // zadanie 6.2
+
+Console.WriteLine("\nTrzech najlepiej zarabiających pracowników: \n");
+foreach (var name in topThreeEarners)
+{
+    Console.WriteLine($"{name.FirstName} {name.LastName}");
+}
+
+Console.Write($"\nPodaj stanowisko ({string.Join(", ", Enum.GetNames<Position>())}): "); // zadanie 6.3
+if (Enum.TryParse<Position>(Console.ReadLine(), ignoreCase: true, out var position1) && Enum.IsDefined(position1))
+{
+    if (employees.Any(e => e.Position == position1))
+    {
+        var allEmployeesOnPosition = employees.Where(e => e.Position == position1).OrderBy(e => e.LastName).ToList();
+        Console.WriteLine($"\nPracownicy zatrudnieni na stanowisku {position1}: ");
+        PrintEmployees(allEmployeesOnPosition);
+    }
+}
+else
+{
+    Console.WriteLine("Niepoprawne stanowisko.");
+}
+
+var formattedHighEarners = employees
+    .Where(e => e.Salary > 10000)
+    .Select(e => $"{e.FirstName} {e.LastName} | {e.Position}")
+    .ToList(); // zadanie 6.4
+
+Console.WriteLine("\nPracownicy zarabiający więcej niż 10000 zł: \n");
+foreach (var line in formattedHighEarners)
+{
+    Console.WriteLine(line);
+}
+
+var youngestEmployees = employees
+    .OrderBy(e => e.BirthDate)
+    .Take(3)
+    .ToList(); // zadanie 6.5
+
+Console.WriteLine("\nTrzech najmłodszych pracowników: \n");
+foreach (var employee in youngestEmployees)
+    {
+        Console.WriteLine(employee.FirstName + " " + employee.LastName);
+        Console.WriteLine(employee.Age);
+        Console.WriteLine("--------------------\n");
+    }
 
 /*
 ---------------------------- LABORATORIUM 2 koniec ----------------------------
