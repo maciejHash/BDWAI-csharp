@@ -82,6 +82,27 @@ else
 Console.Write("\nOryginalna lista employees po użyciu zapytania z użyciem where(): \n\n\n"); // zadanie 2.5
 PrintEmployees(employees); // lista nie została zmodyfikowana, ponieważ metoda Where() zwraca nową kolekcję, a nie modyfikuje istniejącą
 
+// --- zadanie 3 ---
+
+var sortedByLastName = employees.OrderBy(e => e.LastName).ToList(); // zadanie 3.1
+
+Console.WriteLine("\nPracownicy posortowani rosnąco według nazwiska: \n");
+PrintEmployees(sortedByLastName);
+
+var sortedBySalaryDesc = employees.OrderByDescending(e => e.Salary).ToList(); // zadanie 3.2
+
+Console.WriteLine("\nPracownicy posortowani malejąco według pensji: \n");
+PrintEmployees(sortedBySalaryDesc);
+
+PrintEmployees(developers.OrderByDescending(e => e.Salary).ToList()); // zadanie 3.3
+
+var sortedBySalaryThenLastName = employees.OrderByDescending(e => e.Salary).ThenBy(e => e.LastName).ToList(); // zadanie 3.4
+
+Console.WriteLine("\nPracownicy posortowani malejąco według pensji, a przy równych pensjach rosnąco według nazwiska: \n");
+PrintEmployees(sortedBySalaryThenLastName);
+
+
+
 /*
 ---------------------------- LABORATORIUM 2 ----------------------------
 */
