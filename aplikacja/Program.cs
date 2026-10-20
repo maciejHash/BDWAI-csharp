@@ -1,13 +1,17 @@
 ﻿var employees = new List<Employee> // zadanie 1.6
 {
-    new(1, "Anna", "Kowalska", new DateTime(2003, 4, 10), Position.Manager, 12500),
+    new(1, "Anna", "Kowalska", new DateTime(2003, 4, 10), Position.Manager, 16500),
     new(2, "Krzysztos", "Rapacz", new DateTime(1985, 11, 3), Position.Developer, 9800),
-    new(3, "Zofia", "Wiśniewska", new DateTime(2001, 7, 21), Position.Intern, 4200),
+    new(3, "Zofia", "Wiśniewska", new DateTime(2001, 7, 21), Position.Intern, 4500),
     new(4, "Piotr", "Wójcik", new DateTime(1995, 2, 18), Position.Manager, 7600),
     new(5, "Maria", "Rapacz", new DateTime(1988, 9, 30), Position.Developer, 10500),
     new(6, "Reobert", "Lewandowski", new DateTime(1999, 1, 8), Position.Tester, 6900),
     new(7, "Alicja", "Rapacz", new DateTime(2002, 12, 5), Position.Intern, 4500),
-    new(8, "Piotr", "Szymański", new DateTime(1982, 6, 14), Position.Manager, 14200)
+    new(8, "Piotr", "Szymański", new DateTime(1982, 6, 14), Position.Manager, 14200),
+    new(9, "Maria", "Rapacz", new DateTime(1988, 9, 30), Position.Developer, 10500),
+    new(10, "Reobert", "Lewandowski", new DateTime(1999, 1, 8), Position.Tester, 6900),
+    new(11, "Wojciech", "Rapacz", new DateTime(2002, 12, 5), Position.Intern, 4500),
+    new(12, "Krzysztos", "Rapacz", new DateTime(1985, 11, 3), Position.Developer, 15800)
 };
 
 PrintEmployees(employees); // zadanie 2.1
@@ -33,6 +37,55 @@ catch (ArgumentOutOfRangeException ex)
 {
     Console.WriteLine($"Błąd: {ex.Message}");
 }
+
+
+/*
+---------------------------- LABORATORIUM 2 ----------------------------
+*/
+
+var highEarners = employees.Where(e => e.Salary > 10000).ToList(); // zadanie 2.1
+
+Console.WriteLine("\nPracownicy zarabiający więcej niż 10000 zł: ");
+PrintEmployees(highEarners);
+
+var developers = employees.Where(e => e.Position == Position.Developer).ToList(); // zadanie 2.2
+
+Console.WriteLine("\nPracownicy zatrudnieni na stanowisku Developer: ");
+PrintEmployees(developers);
+
+Console.Write("\nPodaj minimalną wartość pensji: "); // zadanie 2.3
+if (decimal.TryParse(Console.ReadLine(), out var minSalary))
+{
+    var aboveMinSalary = employees.Where(e => e.Salary > minSalary).ToList();
+
+    Console.WriteLine($"\nPracownicy zarabiający więcej niż {minSalary} zł: ");
+    PrintEmployees(aboveMinSalary);
+}
+else
+{
+    Console.WriteLine("Niepoprawna wartość pensji.");
+}
+
+Console.Write($"\nPodaj stanowisko ({string.Join(", ", Enum.GetNames<Position>())}): "); // zadanie 2.4
+if (Enum.TryParse<Position>(Console.ReadLine(), ignoreCase: true, out var position) && Enum.IsDefined(position))
+{
+    var onPosition = employees.Where(e => e.Position == position).ToList();
+
+    Console.WriteLine($"\nPracownicy zatrudnieni na stanowisku {position}: ");
+    PrintEmployees(onPosition);
+}
+else
+{
+    Console.WriteLine("Niepoprawne stanowisko.");
+}
+
+Console.Write("\nOryginalna lista employees po użyciu zapytania z użyciem where(): \n\n\n"); // zadanie 2.5
+PrintEmployees(employees); // lista nie została zmodyfikowana, ponieważ metoda Where() zwraca nową kolekcję, a nie modyfikuje istniejącą
+
+/*
+---------------------------- LABORATORIUM 2 ----------------------------
+*/
+
 
 void PrintEmployees(IEnumerable<Employee> employees) // zadanie 2.1
 {
