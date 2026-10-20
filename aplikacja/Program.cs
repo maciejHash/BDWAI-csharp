@@ -40,7 +40,7 @@ catch (ArgumentOutOfRangeException ex)
 
 
 /*
----------------------------- LABORATORIUM 2 ----------------------------
+---------------------------- LABORATORIUM 2 początek ----------------------------
 */
 
 var highEarners = employees.Where(e => e.Salary > 10000).ToList(); // zadanie 2.1
@@ -126,9 +126,53 @@ foreach (var desc in shortDescriptions) // zadanie 4.4
     Console.WriteLine($"ID: {desc.Id}\n Imię: {desc.FirstName}\n Nazwisko: {desc.LastName}\n Stanowisko: {desc.Position}");
 }
 
+// --- zadanie 5 ---
+
+Console.Write("\nPodaj Id pracownika: "); // zadanie 5.1
+if (int.TryParse(Console.ReadLine(), out var employeeId))
+{
+    var foundEmployee = employees.FirstOrDefault(e => e.Id == employeeId);
+
+    if (foundEmployee is null)
+    {
+        Console.WriteLine($"Nie znaleziono pracownika o Id {employeeId}"); // zadanie 5.2
+    }
+    else
+    {
+        Console.WriteLine($"\nZnaleziony pracownik: \n{foundEmployee}");
+    }
+}
+else
+{
+    Console.WriteLine("Niepoprawne Id pracownika");
+}
+
+var doesVeryRichEmployeeExist = employees.Any(e => e.Salary > 15000); // zadanie 5.3
+
+Console.WriteLine(doesVeryRichEmployeeExist
+    ? "\nIstnieje pracownik zarabiający więcej niż 15000 zł."
+    : "\nNie istnieje pracownik zarabiający więcej niż 15000 zł.");
+
+var isThereAnyManager = employees.Any(e => e.Position == Position.Manager); // zadanie 5.4
+
+Console.WriteLine(isThereAnyManager
+    ? "\nIstnieje manager."
+    : "\nNie istnieje manager.");
+
+Console.Write("\nPodaj Id pracownika do sprawdzenia: "); // zadanie 5.5
+if (int.TryParse(Console.ReadLine(), out var idToCheck))
+{
+    Console.WriteLine(employees.Any(e => e.Id == idToCheck)
+        ? $"Istnieje pracownik o Id {idToCheck}."
+        : $"Nie istnieje pracownik o Id {idToCheck}.");
+}
+else
+{
+    Console.WriteLine("Niepoprawne Id pracownika");
+}
 
 /*
----------------------------- LABORATORIUM 2 ----------------------------
+---------------------------- LABORATORIUM 2 koniec ----------------------------
 */
 
 
