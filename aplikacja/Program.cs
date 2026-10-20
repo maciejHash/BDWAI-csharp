@@ -101,6 +101,30 @@ var sortedBySalaryThenLastName = employees.OrderByDescending(e => e.Salary).Then
 Console.WriteLine("\nPracownicy posortowani malejąco według pensji, a przy równych pensjach rosnąco według nazwiska: \n");
 PrintEmployees(sortedBySalaryThenLastName);
 
+// --- zadanie 4 ---
+
+var fullNames = employees.Select(e => new { e.FirstName, e.LastName }).ToList(); // zadanie 4.1
+
+Console.WriteLine("\nImiona i nazwiska wszystkich pracowników: \n");
+foreach (var name in fullNames)
+{
+    Console.WriteLine($"{name.FirstName} {name.LastName}");
+}
+
+var fullNamesWithPosition = employees.Select(e => new { e.FirstName, e.LastName, e.Position }).ToList(); // zadanie 4.2
+
+Console.WriteLine("\nImiona, nazwiska i stanowiska wszystkich pracowników: \n");
+foreach (var name in fullNamesWithPosition)
+{
+    Console.WriteLine($"{name.FirstName} {name.LastName} - {name.Position}");
+}
+
+var shortDescriptions = employees.Select(e => new { e.Id, e.FirstName, e.LastName, e.Position }).ToList(); // zadanie 4.3
+
+foreach (var desc in shortDescriptions) // zadanie 4.4
+{
+    Console.WriteLine($"ID: {desc.Id}\n Imię: {desc.FirstName}\n Nazwisko: {desc.LastName}\n Stanowisko: {desc.Position}");
+}
 
 
 /*
