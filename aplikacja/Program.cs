@@ -235,9 +235,83 @@ foreach (var employee in youngestEmployees)
     }
 
 /*
----------------------------- LABORATORIUM 2 koniec ----------------------------
+---------------------------- LABORATORIUM 3 początek ----------------------------
 */
 
+IEnumerable<Employee> GetEmployeesOlderThan(IEnumerable<Employee> employees, int age) // zadanie 1.1
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees.Where(e => e.Age > age);
+}
+
+IEnumerable<Employee> GetEmployeesWithSalaryHigherThanAndYoungerThanOrderBySalary( // zadanie 1.2
+    IEnumerable<Employee> employees, decimal salary, int age)
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees
+        .Where(e => e.Salary > salary && e.Age < age)
+        .OrderBy(e => e.Salary);
+
+    // query syntax zadanie 1.7
+    // return from employee in employees
+    //        where employee.Salary > salary && employee.Age < age
+    //        orderby employee.Salary
+    //        select employee;
+}
+
+IEnumerable<Employee> GetDevelopersOrEmployeesWhoseLastNameStartsWith( // zadanie 1.3
+    IEnumerable<Employee> employees, string firstLetter) 
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees
+        .Where(e => e.Position == Position.Developer || e.LastName.StartsWith(firstLetter));
+}
+
+decimal GetSumOfSalaries(IEnumerable<Employee> employees) // zadanie 1.4
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees.Sum(e => e.Salary);
+}
+
+decimal GetAverageSalaryOfDevelopers(IEnumerable<Employee> employees) // zadanie 1.5
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees
+        .Where(e => e.Position == Position.Developer)
+        .Select(e => e.Salary)
+        .DefaultIfEmpty(0m)
+        .Average();
+}
+
+IEnumerable<decimal> GetFirstFourLowestDifferentSalaries(IEnumerable<Employee> employees) // zadanie 1.6
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees
+        .Select(e => e.Salary)
+        .Distinct()
+        .OrderBy(salary => salary)
+        .Take(4);
+
+    // query syntax zadanie 1.7
+    // var differentSalaries =
+    //     from employee in employees
+    //     group employee.Salary by employee.Salary into salaries
+    //     orderby salaries.Key
+    //     select salaries.Key;
+
+    // return differentSalaries.Take(4);
+}
+
+
+/*
+---------------------------- LABORATORIUM 3 koniec ----------------------------
+*/
 
 void PrintEmployees(IEnumerable<Employee> employees) // zadanie 2.1
 {
