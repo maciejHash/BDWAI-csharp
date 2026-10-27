@@ -238,6 +238,8 @@ foreach (var employee in youngestEmployees)
 ---------------------------- LABORATORIUM 3 początek ----------------------------
 */
 
+// --- zadanie 1 ---
+
 IEnumerable<Employee> GetEmployeesOlderThan(IEnumerable<Employee> employees, int age) // zadanie 1.1
 {
     ArgumentNullException.ThrowIfNull(employees);
@@ -308,7 +310,45 @@ IEnumerable<decimal> GetFirstFourLowestDifferentSalaries(IEnumerable<Employee> e
     // return differentSalaries.Take(4);
 }
 
+// --- zadanie 2 ---
 
+IEnumerable<IGrouping<Position, Employee>> GroupEmployeesByPosition(IEnumerable<Employee> employees) // zadanie 2.1
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    return employees.GroupBy(employee => employee.Position);
+}
+
+void PrintPositionStatistics(IEnumerable<Employee> employees) // zadanie 2.2
+{
+    ArgumentNullException.ThrowIfNull(employees);
+
+    foreach (var group in GroupEmployeesByPosition(employees)
+                 .OrderByDescending(group => group.Average(employee => employee.Salary))) // zadanie 2.3
+    {
+        Console.WriteLine(
+            $"Stanowisko: {group.Key}, liczba pracowników: {group.Count()}, " +
+            $"średnia pensja: {group.Average(employee => employee.Salary)}, " +
+            $"najniższa pensja: {group.Min(employee => employee.Salary)}, " +
+            $"najwyższa pensja: {group.Max(employee => employee.Salary)}");
+    }
+}
+
+var allEmployeesHavePositiveSalary = employees.All(employee => employee.Salary > 0); // zadanie 2.4
+Console.WriteLine(allEmployeesHavePositiveSalary
+    ? "\nWszyscy pracownicy mają pensję większą od 0."
+    : "\nNie wszyscy pracownicy mają pensję większą od 0.");
+
+try
+{
+    _ = employees.SingleOrDefault(employee => employee.LastName == "Rapacz"); // zadanie 2.5
+}
+catch (InvalidOperationException ex)
+{
+    Console.WriteLine($"\nSingleOrDefault() zgłosił wyjątek dla wielu pasujących pracowników: {ex.Message}");
+}
+
+// --- zadanie 3 ---
 /*
 ---------------------------- LABORATORIUM 3 koniec ----------------------------
 */
