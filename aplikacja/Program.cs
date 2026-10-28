@@ -349,6 +349,43 @@ catch (InvalidOperationException ex)
 }
 
 // --- zadanie 3 ---
+
+Action<string> printMessage = Console.WriteLine; // zadanie 3.1
+
+void WriteToConsole(string text) // zadanie 3.2
+{
+    Console.WriteLine(text);
+}
+
+void WriteToFile(string text) // zadanie 3.2
+{
+    var filePath = Path.GetFullPath(
+        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "output.txt"));
+    File.WriteAllText(filePath, text);
+}
+
+Action<string> writeMessage = WriteToConsole; // zadanie 3.3
+writeMessage += WriteToFile;
+writeMessage("Test delegata: ten tekst trafia do konsoli i do pliku.");
+
+static void Info(Action<string> action) // zadanie 3.4
+{
+    ArgumentNullException.ThrowIfNull(action);
+
+    Console.WriteLine("Info about:");
+    action("Informacja przekazana przez delegat.");
+}
+
+Info(WriteToConsole); // zadanie 3.5
+Info(delegate (string text) { Console.WriteLine($"Metoda anonimowa: {text}"); });
+Info(text => Console.WriteLine($"Wyrażenie lambda: {text}"));
+
+// --- zadanie 4 ---
+// zadanie 4.1 StringExtension.java
+
+// zadanie 4.2, 4.3, 4.4 i 4.5 w EnumerableExtension.java
+Console.WriteLine($"Czy kolekcja employees jest pusta? {employees.IsEmpty()}"); // zadanie 4.2
+
 /*
 ---------------------------- LABORATORIUM 3 koniec ----------------------------
 */
